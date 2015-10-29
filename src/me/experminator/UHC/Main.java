@@ -18,7 +18,6 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         if (plugin == null) plugin = this;
 
-        // TODO: Register more listeners.
         getServer().getPluginManager().registerEvents(new LoginListener(), this);
         getServer().getPluginManager().registerEvents(new JoinListener(), this);
         getServer().getPluginManager().registerEvents(new QuitListener(), this);

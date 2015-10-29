@@ -10,6 +10,7 @@ import java.util.UUID;
  */
 public class UHCPlayer {
 
+    // TODO: Add more stuff like statistics.
     private Player player;
 
     public UHCPlayer(Player player) {
