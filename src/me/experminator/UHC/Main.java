@@ -3,6 +3,7 @@ package me.experminator.UHC;
 import me.experminator.UHC.game.GameManager;
 import me.experminator.UHC.game.GameState;
 import me.experminator.UHC.listener.*;
+import me.experminator.UHC.util.TimeUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -34,6 +35,8 @@ public class Main extends JavaPlugin {
 
         GameManager.setGameWorld(Bukkit.getWorlds().get(0));
         GameManager.setGameState(GameState.WAITING);
+        GameManager.setCountdownTime(TimeUtil.MINUTE);
+        GameManager.setGameTime(TimeUtil.MINUTE * 30);
     }
 
     @Override

@@ -2,6 +2,7 @@ package me.experminator.UHC.game;
 
 import me.experminator.UHC.Main;
 import me.experminator.UHC.util.MessageUtil;
+import me.experminator.UHC.util.TimeUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -17,9 +18,11 @@ public class GameManager {
 
     private static World gameWorld;
     private static GameState gameState;
+    private static boolean deathmatch = false;
     private static int min_players = 6;
     private static int max_players = Bukkit.getMaxPlayers();
-    private static long time = 60;
+    private static long countdownTime = 60;
+    private static long gameTime = 60 * 30;
     private static List<Integer> countdownBroadcastTimes = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 60));
     private static List<UHCPlayer> players = new ArrayList<>(); // TODO: Change to HashMap for team implementation.
 
@@ -42,12 +45,20 @@ public class GameManager {
         GameManager.max_players = max_players;
     }
 
-    public static long getTime() {
-        return time;
+    public static long getGameTime() {
+        return gameTime;
     }
 
-    public static void setTime(long time) {
-        GameManager.time = time;
+    public static void setGameTime(long gameTime) {
+        GameManager.gameTime = gameTime;
+    }
+
+    public static long getCountdownTime() {
+        return countdownTime;
+    }
+
+    public static void setCountdownTime(long time) {
+        GameManager.countdownTime = time;
     }
 
     public static List<Integer> getCountdownBroadcastTimes() {
@@ -121,11 +132,25 @@ public class GameManager {
 
     public static synchronized void startCountdown() {
         setGameState(GameState.COUNTDOWN);
-        Bukkit.getScheduler().runTaskTimer(Main.getPlugin(), new CountdownTimer(), 0L, 20L);
+        Bukkit.getScheduler().runTaskTimer(Main.getPlugin(), new CountdownTimer(), 0L, TimeUtil.MINECRAFT_SECOND);
     }
 
     public static synchronized void startGame() {
         setGameState(GameState.IN_GAME);
-        Bukkit.getScheduler().runTaskTimer(Main.getPlugin(), new GameTimer(), 0L, 20L);
+        Bukkit.getScheduler().runTaskTimer(Main.getPlugin(), new GameTimer(), 0L, TimeUtil.MINECRAFT_SECOND);
+    }
+
+    public static synchronized void endGame() {
+        setGameState(GameState.ENDED);
+        Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
+
+            @Override
+            public void run() {
+                for (UHCPlayer p : players) {
+                    p.getBukkitPlayer().kickPlayer(MessageUtil.toColorText("&6&lUHC is finished!"));
+                }
+            }
+
+        }, TimeUtil.MINECRAFT_SECOND);
     }
 }

@@ -9,6 +9,9 @@ public class GameTimer extends BukkitRunnable {
 
     @Override
     public void run() {
-        // TODO: Game timer related stuff here.
+        if (GameManager.getGameTime() <= 0) {
+            cancel();
+
+        }
     }
 }

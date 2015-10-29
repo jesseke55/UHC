@@ -9,7 +9,7 @@ public class CountdownTimer extends BukkitRunnable {
 
     @Override
     public void run() {
-        if (GameManager.getTime() <= 0) {
+        if (GameManager.getCountdownTime() <= 0) {
             cancel();
             GameManager.startGame();
         } else {
@@ -20,7 +20,7 @@ public class CountdownTimer extends BukkitRunnable {
                 );
             }
 
-            GameManager.setTime(GameManager.getTime() - 1);
+            GameManager.setCountdownTime(GameManager.getCountdownTime() - 1);
         }
     }
 }

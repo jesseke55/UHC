@@ -5,5 +5,5 @@ package me.experminator.UHC.game;
  */
 public enum GameState {
 
-    WAITING, COUNTDOWN, IN_GAME;
+    WAITING, COUNTDOWN, IN_GAME, ENDED;
 }
