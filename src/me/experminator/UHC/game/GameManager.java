@@ -18,7 +18,6 @@ public class GameManager {
 
     private static World gameWorld;
     private static GameState gameState;
-    private static boolean deathmatch = false;
     private static int min_players = 6;
     private static int max_players = Bukkit.getMaxPlayers();
     private static long countdownTime = 60;
@@ -26,8 +25,7 @@ public class GameManager {
     private static List<Integer> countdownBroadcastTimes = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 60));
     private static List<UHCPlayer> players = new ArrayList<>(); // TODO: Change to HashMap for team implementation.
 
-    private GameManager() {
-    }
+    private GameManager() { }
 
     public static int getMinPlayers() {
         return min_players;
@@ -84,6 +82,10 @@ public class GameManager {
         }
 
         return null;
+    }
+
+    public static int getUHCPlayers() {
+        return players.size();
     }
 
     public static boolean hasPlayer(Player p) {

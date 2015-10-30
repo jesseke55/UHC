@@ -11,7 +11,9 @@ public class GameTimer extends BukkitRunnable {
     public void run() {
         if (GameManager.getGameTime() <= 0) {
             cancel();
-
+            GameManager.endGame();
+        } else {
+            // TODO: Add gameplay related stuff in here.
         }
     }
 }
